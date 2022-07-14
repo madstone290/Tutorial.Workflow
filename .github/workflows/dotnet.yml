@@ -13,7 +13,7 @@ env:
   # deploy
   API_PROJ: Inventory.Api
   SOURCE_DIR: publish
-  TARGET_DIR: publish
+  TARGET_DIR: Tutorial.Workflow.Api
   DEPLOY_REF: refs/heads/main
   DEPLOY_EVT: push
   
@@ -52,7 +52,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         port: ${{ secrets.SSH_PORT }}
         key: ${{ secrets.SSH_KEY }}
-        source: ${{ env.SOURCE_DIR }}/*
+        source: ${{ env.SOURCE_DIR }}
         target: ${{ env.TARGET_DIR }}
         
     - name: Report
