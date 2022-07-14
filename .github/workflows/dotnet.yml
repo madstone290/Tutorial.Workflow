@@ -14,6 +14,7 @@ env:
   SOURCE_DIR: publish
   TARGET_DIR: publish
   DEPLOY_REF: refs/heads/main
+  DEPLOY_EVT: push
   
   # slack
   SLACK_AUTHOR: '' # hide author_name with empty string
@@ -39,11 +40,11 @@ jobs:
       run: dotnet test --no-build --verbosity normal --configuration Release
       
     - name: Publish
-      if: github.event_name == 'push' && github.event.ref == 'refs/heads/main'
+      if: github.event_name == '${{ DEPLOY_EVT }}' && github.event.ref == '${{ env.DEPLOY_REF }}'
       run: dotnet publish -c Release -o ${{ env.SOURCE_DIR }}
       
     - name: Deploy
-      if: github.event_name == 'push' && github.event.ref == 'refs/heads/main'
+      if: github.event_name == '${{ DEPLOY_EVT }}' && github.event.ref == '${{ env.DEPLOY_REF }}'
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
