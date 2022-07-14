@@ -26,65 +26,30 @@ jobs:
     - name: Report
       uses: 8398a7/action-slack@v3
       with:
-        status: custom
-        custom_payload: |
+         status: custom
+         custom_payload: |
           {
-            text: "Build&Test Report",
+            text: "Custom Field Check",
             attachments: [{
-              author_name: 'madstone290@gmail.com'
+              "author_name": "8398a7@action-slack", // json
               fallback: 'fallback',
               color: 'good',
               title: 'CI Result',
               text: 'Succeeded',
               fields: [{
-                title: "Repository",
-                value: `${process.env.AS_REPO}`,
+                title: 'lower case',
+                value: 'LOWER CASE CHECK'.toLowerCase(),
                 short: true
               },
               {
-                title: "Commit",
-                value: `${process.env.AS_COMMIT}`,
+                title: 'reverse',
+                value: 'gnirts esrever'.split('').reverse().join(''),
                 short: true
               },
               {
-                title: "Event",
-                value: `${process.env.AS_EVENT_NAME}`,
-                short: true
-              },
-              {
-                title: "Ref",
-                value: `${process.env.AS_REF}`,
-                short: true
-              },
-              {
-                title: "Workflow",
-                value: `${process.env.AS_WORKFLOW}`,
-                short: true
-              },
-              {
-                title: "Short Message",
-                value: `${process.env.AS_MESSAGE}`,
-                short: true
-              },
-              {
-                title: "Long Message",
-                value: `${process.env.AS_MESSAGE}`,
+                title: 'long title1',
+                value: 'long value1',
                 short: false
-              },
-              {
-                title: "Author",
-                value: `${process.env.AS_AUTHOR}`,
-                short: true
-              },
-              {
-                title: "Took",
-                value: `${process.env.AS_TOOK}`,
-                short: true
-              },
-              {
-                title: "Pull Request",
-                value: `${process.env.AS_PULL_REQUEST}`,
-                short: true
               }],
               actions: [{
               }]
