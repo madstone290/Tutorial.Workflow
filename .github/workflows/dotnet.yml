@@ -5,27 +5,56 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
 env:
+  # dotnet
   DOTNET_VERSION: 6.0.x
+  
+  # deploy
+  API_PROJ: Inventory.Api
+  SOURCE_DIR: publish
+  TARGET_DIR: publish
+  DEPLOY_REF: refs/heads/main
+  DEPLOY_EVT: push
+  
+  # slack
   SLACK_AUTHOR: '' # hide author_name with empty string
   
 jobs:
-  build-and-test-then-report:
-
+  CI-CD:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
+    
     - name: Restore dependencies
       run: dotnet restore
+    
     - name: Build
       run: dotnet build --no-restore --configuration Release
+    
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
+      
+    - name: Publish
+      if: ${{ github.event_name == env.DEPLOY_EVT && github.event.ref == env.DEPLOY_REF }}
+      run: dotnet publish ${{ env.API_PROJ }} -c Release -o ${{ env.SOURCE_DIR }}
+      
+    - name: Deploy
+      if: ${{ github.event_name == env.DEPLOY_EVT && github.event.ref == env.DEPLOY_REF }}
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        port: ${{ secrets.SSH_PORT }}
+        key: ${{ secrets.SSH_KEY }}
+        source: ${{ env.SOURCE_DIR }}
+        target: ${{ env.TARGET_DIR }}
+        
     - name: Report
       uses: 8398a7/action-slack@v3
       with:
