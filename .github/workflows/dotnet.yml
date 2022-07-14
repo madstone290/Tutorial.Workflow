@@ -42,7 +42,7 @@ jobs:
       
     - name: Publish
       if: ${{ github.event_name == env.DEPLOY_EVT && github.event.ref == env.DEPLOY_REF }}
-      run: dotnet publish ${{ API_PROJ }} -c Release -o ${{ env.SOURCE_DIR }}
+      run: dotnet publish ${{ env.API_PROJ }} -c Release -o ${{ env.SOURCE_DIR }}
       
     - name: Deploy
       if: ${{ github.event_name == env.DEPLOY_EVT && github.event.ref == env.DEPLOY_REF }}
