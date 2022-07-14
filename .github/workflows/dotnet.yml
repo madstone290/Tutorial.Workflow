@@ -5,7 +5,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+env:
+  DOTNET_VERSION: 6.0.x
+  SLACK_AUTHOR: '' # hide author_name with empty string
+  
 jobs:
   build-and-test-then-report:
 
@@ -16,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -27,7 +30,7 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: ${{ job.status }}
-        author_name: ''
+        author_name: ${{ env.SLACK_AUTHOR }}
         fields: eventName,message,commit,author,ref,workflow,job,took,pullRequest
       env: 
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
