@@ -16,6 +16,16 @@ namespace Workflow.Inventory.Domain
             return _inventoryRecords.FirstOrDefault(x => x.Item == item && x.Location == location);
         }
 
+        public IEnumerable<InventoryRecord> GetAllRecords()
+        {
+            return _inventoryRecords;
+        }
+
+        public IEnumerable<InventoryRecord> GetRecordsAt(Location location)
+        {
+            return _inventoryRecords.Where(x=> x.Location == location);
+        }
+
         public decimal GetQuantity(Item item, Location location)
         {
             InventoryRecord? record = GetRecord(item, location);
