@@ -26,9 +26,70 @@ jobs:
     - name: Report
       uses: 8398a7/action-slack@v3
       with:
-        status: ${{ job.status }}
-        author_name: madstone290@gmail.com
-        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+        status: custom
+        custom_payload: |
+          {
+            text: "Build&Test Report",
+            attachments: [{
+              author_name: 'madstone290@gmail.com'
+              fallback: 'fallback',
+              color: 'good',
+              title: 'CI Result',
+              text: 'Succeeded',
+              fields: [{
+                title: "Repository",
+                value: `${process.env.AS_REPO}`,
+                short: true
+              },
+              {
+                title: "Commit",
+                value: `${process.env.AS_COMMIT}`,
+                short: true
+              },
+              {
+                title: "Event",
+                value: `${process.env.AS_EVENT_NAME}`,
+                short: true
+              },
+              {
+                title: "Ref",
+                value: `${process.env.AS_REF}`,
+                short: true
+              },
+              {
+                title: "Workflow",
+                value: `${process.env.AS_WORKFLOW}`,
+                short: true
+              },
+              {
+                title: "Short Message",
+                value: `${process.env.AS_MESSAGE}`,
+                short: true
+              },
+              {
+                title: "Long Message",
+                value: `${process.env.AS_MESSAGE}`,
+                short: false
+              },
+              {
+                title: "Author",
+                value: `${process.env.AS_AUTHOR}`,
+                short: true
+              },
+              {
+                title: "Took",
+                value: `${process.env.AS_TOOK}`,
+                short: true
+              },
+              {
+                title: "Pull Request",
+                value: `${process.env.AS_PULL_REQUEST}`,
+                short: true
+              }],
+              actions: [{
+              }]
+            }]
+          }
       env: 
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
       if: always() 
