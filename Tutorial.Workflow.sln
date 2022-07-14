@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workflow.Inventory", "Inventory\Workflow.Inventory.csproj", "{8F50BDA1-7B39-491D-85BE-1BBAE9D2B007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.UnitTests", "Inventory.UnitTests\Inventory.UnitTests.csproj", "{97E3413D-3B37-4082-BCF5-A8F3EA71EABB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.UnitTests", "Inventory.UnitTests\Inventory.UnitTests.csproj", "{97E3413D-3B37-4082-BCF5-A8F3EA71EABB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Api", "Inventory.Api\Inventory.Api.csproj", "{2E4D45F1-94F8-4036-B8F9-2DE4D3B55278}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{97E3413D-3B37-4082-BCF5-A8F3EA71EABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97E3413D-3B37-4082-BCF5-A8F3EA71EABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97E3413D-3B37-4082-BCF5-A8F3EA71EABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E4D45F1-94F8-4036-B8F9-2DE4D3B55278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E4D45F1-94F8-4036-B8F9-2DE4D3B55278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E4D45F1-94F8-4036-B8F9-2DE4D3B55278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E4D45F1-94F8-4036-B8F9-2DE4D3B55278}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
