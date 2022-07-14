@@ -11,11 +11,11 @@ env:
   DOTNET_VERSION: 6.0.x
   
   # deploy
-  API_PROJ: Inventory.Api
-  SOURCE_DIR: publish
-  TARGET_DIR: Tutorial.Workflow.Api
-  DEPLOY_REF: refs/heads/main
-  DEPLOY_EVT: push
+  API_PROJ: Inventory.Api # Api project directory
+  SOURCE_DIR: publish # publish directory
+  TARGET_DIR: Tutorial.Workflow.Api # deploy directory in the remote machine
+  DEPLOY_REF: refs/heads/main # ref for publish&deployee step
+  DEPLOY_EVT: push # event for publish&deployee step
   
   # slack
   SLACK_AUTHOR: '' # hide author_name with empty string
@@ -54,6 +54,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: 'publish/*'
         target: ${{ env.TARGET_DIR }}
+        strip_components: 1 # remove 1 level path of source directory
         
     - name: Report
       uses: 8398a7/action-slack@v3
