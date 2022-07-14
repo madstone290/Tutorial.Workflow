@@ -39,19 +39,19 @@ jobs:
       run: dotnet test --no-build --verbosity normal --configuration Release
       
     - name: Publish
-      if: github.event.ref == ${{ DEPLOY_REF }}
-      run: dotnet publish -c Release -o ${{ SOURCE_DIR }}
+      if: github.event.ref == ${{ env.DEPLOY_REF }}
+      run: dotnet publish -c Release -o ${{ env.SOURCE_DIR }}
       
     - name: Deploy
-      if: github.event.ref == ${{ DEPLOY_REF }}
+      if: github.event.ref == ${{ env.DEPLOY_REF }}
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         port: ${{ secrets.SSH_PORT }}
         key: ${{ secrets.SSH_KEY }}
-        source: ${{ SOURCE_DIR }}
-        target: ${{ TARGET_DIR }}
+        source: ${{ env.SOURCE_DIR }}
+        target: ${{ env.TARGET_DIR }}
         
     - name: Report
       uses: 8398a7/action-slack@v3
