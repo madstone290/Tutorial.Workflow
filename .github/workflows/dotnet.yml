@@ -14,6 +14,7 @@ env:
   API_PROJ: Inventory.Api # Api project directory
   SOURCE_DIR: publish # publish directory
   TARGET_DIR: workflow/publish # deploy directory in the remote machine
+  SCRIPT_PATH: workflow/switchDeploy.sh # bash shell file to deploy and switch 
   DEPLOY_REF: refs/heads/main # ref for publish&deployee step
   DEPLOY_EVT: push # event for publish&deployee step
   
@@ -40,11 +41,11 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
       
-    - name: Publish
+    - name: Publish Local
       if: ${{ github.event_name == env.DEPLOY_EVT && github.event.ref == env.DEPLOY_REF }}
       run: dotnet publish ${{ env.API_PROJ }} -c Release -o ${{ env.SOURCE_DIR }}
       
-    - name: Deploy
+    - name: Publish Remote
       if: ${{ github.event_name == env.DEPLOY_EVT && github.event.ref == env.DEPLOY_REF }}
       uses: appleboy/scp-action@master
       with:
@@ -57,6 +58,16 @@ jobs:
         rm: true
         strip_components: 1 # remove 1 level path of source directory
         
+    - name: Deploy
+      if: ${{ github.event_name == env.DEPLOY_EVT && github.event.ref == env.DEPLOY_REF }}
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: bash ${{ env.SCRIPT_PATH }}
+
     - name: Report
       uses: 8398a7/action-slack@v3
       with:
