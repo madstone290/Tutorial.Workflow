@@ -16,7 +16,7 @@ namespace Inventory.Api.Controllers.DevOps
         [HttpGet]
         public string? Get()
         {
-            var color = _configuration.GetValue<string>("UpStreamColor")?.ToLower();
+            var color = _configuration.GetValue<string>("UpstreamColor")?.ToLower();
             return color;
         }
     }

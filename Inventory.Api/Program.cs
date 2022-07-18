@@ -6,7 +6,7 @@ if(colorArg != null)
     var color = colorArg.Substring(colorArg.IndexOf('=') + 1);
     builder.Configuration.AddInMemoryCollection(new List<KeyValuePair<string, string>>()
     {
-        new KeyValuePair<string, string>("UpStreamColor", color)
+        new KeyValuePair<string, string>("UpstreamColor", color)
     });
 }
 
