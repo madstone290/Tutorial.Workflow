@@ -1,5 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
 
+var colorArg = args.FirstOrDefault(x => x.StartsWith("UpstreamColor=", StringComparison.OrdinalIgnoreCase));
+if(colorArg != null)
+{
+    var color = colorArg.Substring(colorArg.IndexOf('=') + 1);
+    builder.Configuration.AddInMemoryCollection(new List<KeyValuePair<string, string>>()
+    {
+        new KeyValuePair<string, string>("UpStreamColor", color)
+    });
+}
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
