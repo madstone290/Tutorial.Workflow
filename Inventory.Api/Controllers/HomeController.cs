@@ -7,10 +7,12 @@ namespace Inventory.Api.Controllers
     [Route("/")]
     public class HomeController : ControllerBase
     {
+        private const string Version = "1.0.11";
+
         [HttpGet]
         public string Get()
         {
-            return "Welcome to inventory api";
+            return $"Hi this is inventory home\nCurrent Versions is {Version}";
         }
     }
 }
