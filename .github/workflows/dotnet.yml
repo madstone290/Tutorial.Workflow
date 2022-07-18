@@ -13,7 +13,7 @@ env:
   # deploy
   API_PROJ: Inventory.Api # Api project directory
   SOURCE_DIR: publish # publish directory
-  TARGET_DIR: Tutorial.Workflow.Api # deploy directory in the remote machine
+  TARGET_DIR: workflow/publish # deploy directory in the remote machine
   DEPLOY_REF: refs/heads/main # ref for publish&deployee step
   DEPLOY_EVT: push # event for publish&deployee step
   
@@ -54,6 +54,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: 'publish/*'
         target: ${{ env.TARGET_DIR }}
+        rm: true
         strip_components: 1 # remove 1 level path of source directory
         
     - name: Report
