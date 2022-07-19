@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+//add comment
+
 var colorArg = args.FirstOrDefault(x => x.StartsWith("UpstreamColor=", StringComparison.OrdinalIgnoreCase));
 if(colorArg != null)
 {
