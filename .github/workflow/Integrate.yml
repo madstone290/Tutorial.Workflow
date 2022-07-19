@@ -1,0 +1,51 @@
+name: .NET CI
+
+env:
+  # dotnet
+  DOTNET_VERSION: 6.0.x
+
+  # slack
+  SLACK_AUTHOR: '' # hide author_name with empty string
+  
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - api-v*
+      - web-v*
+    
+  pull_request:
+    branches: 
+      - main
+    
+
+jobs:
+  CI-CD:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release
+    
+    - name: Report
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        author_name: ${{ env.SLACK_AUTHOR }}
+        fields: eventName,message,commit,author,ref,workflow,job,took,pullRequest
+      env: 
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
+      if: always() 
