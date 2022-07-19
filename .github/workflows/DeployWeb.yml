@@ -17,8 +17,6 @@ env:
   
 on:
   push:
-    branches:
-      - main
     tags:
       - web-v*
 
