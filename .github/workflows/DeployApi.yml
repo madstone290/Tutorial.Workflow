@@ -17,8 +17,6 @@ env:
   
 on:
   push:
-    branches:
-      - main
     tags:
       - api-v*
 
@@ -57,7 +55,7 @@ jobs:
         rm: true
         strip_components: 1 # remove 1 level path of source directory
         
-    - name: Deploy API
+    - name: Deploy
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
