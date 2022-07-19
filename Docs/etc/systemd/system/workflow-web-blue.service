@@ -1,0 +1,18 @@
+[Unit]
+Description=Workflow web blue
+
+[Service]
+WorkingDirectory=/home/ubuntu/workflow/web/blue
+ExecStart=/usr/bin/dotnet Workflow.Inventory.WebApp.dll UpstreamColor=blue
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=Workflow-web-blue
+User=www-data
+
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://localhost:33000
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Workflow api green
+
+[Service]
+WorkingDirectory=/home/ubuntu/workflow/api/green
+ExecStart=/usr/bin/dotnet WorkflowApi.dll UpstreamColor=green
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=workflow-api-green
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://localhost:34100
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target
