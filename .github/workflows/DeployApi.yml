@@ -62,7 +62,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: bash ${{ env.API_SCRIPT_PATH }}
+        script: bash ${{ env.SCRIPT_PATH }}
 
     - name: Report
       uses: 8398a7/action-slack@v3
